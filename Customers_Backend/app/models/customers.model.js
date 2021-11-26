@@ -10,6 +10,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       contact: {
+        type: Sequelize.INTEGER
+      },
+      email: {
         type: Sequelize.STRING
       }
     });
