@@ -1,4 +1,4 @@
-import { Button, Paper, TextField, Dialog, Slide, Grid } from "@mui/material";
+import { Button, TextField, Dialog, Slide, Grid, Divider } from "@mui/material";
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -6,9 +6,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function NewCustomerForm() {
-  // const [customers, setCustomers] = useState([]);
-  const [open, setOpen] = useState(false);
+export default function NewCustomerForm(props) {
+  console.log("add customer props", props)
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -27,130 +26,155 @@ export default function NewCustomerForm() {
   //     });
   // }, [customers]);
 
-  const addCustomer = () => {
-    // e.preventDefault();
-    const postData = {
-      firstname,
-      lastname,
-      email,
-      contact,
-      address
-    };
+  // const addCustomer = () => {
+  //   // e.preventDefault();
+  //   const postData = {
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     contact,
+  //     address,
+  //   };
 
-    axios
-      .post("http://localhost:8080/api/customers", postData)
-      
-      .then((response) => {
-        console.log("addresponse", response)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      setOpen(false);
-  };
+  //   axios
+  //     .post("http://localhost:8080/api/customers", postData)
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  //     .then((response) => {
+  //       console.log("addresponse", response);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   setOpen(false);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const firstNameChangeHandler = (event) => {
-    setFirstname(event.target.value);
-  };
-  const lastNameChangeHandler = (event) => {
-    setLastname(event.target.value);
-  };
-  const emailChangeHandler = (event) => {
-    setEmail(event.target.value);
-  };
-  const contactChangeHandler = (event) => {
-    setContact(event.target.value);
-  };
-  const addressChangeHandler = (event) => {
-    setAddress(event.target.value);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  // const firstNameChangeHandler = (event) => {
+  //   setFirstname(event.target.value);
+  // };
+  // const lastNameChangeHandler = (event) => {
+  //   setLastname(event.target.value);
+  // };
+  // const emailChangeHandler = (event) => {
+  //   setEmail(event.target.value);
+  // };
+  // const contactChangeHandler = (event) => {
+  //   setContact(event.target.value);
+  // };
+  // const addressChangeHandler = (event) => {
+  //   setAddress(event.target.value);
+  // };
   return (
     <>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Add Customer
-      </Button>
+      <Grid container>
+        <Grid item xs={2}></Grid>
+        <Grid item xs={8}>
+          <h1>Customers Details</h1>
+          {/* Add Customer */}
+
+          <Button
+            variant="contained"
+            onClick={()=>{props.handleOpen()}
+              }
+            style={{ marginBottom: 10, float: "right" }}
+          >
+            Add Customer
+          </Button>
+        </Grid>
+        <Grid item xs={2}></Grid>
+      </Grid>
 
       <div>
         <Dialog
-          open={open}
-          //   onClick={handleClose}
+          open={props.open}
+          // onClick={handleClose}
           TransitionComponent={Transition}
           sx={{
-            display: "block",
             boxShadow: "inset 0 0 0 1000px rgba(0, 0, 0, 0.7)",
-            zIndex: 100,
           }}
         >
-          <Paper>
+          <div>
+            <h3 style={{ textAlign: "center" }}>Add Customer Details</h3>
+            <Divider />
+
             <Grid container>
               <Grid item xs={6}>
                 <TextField
-                  value={firstname}
+                  sx={{ margin: 3, width: "80%" }}
+                  value={props.firstname}
                   id="standard-basic"
                   label="First Name"
                   variant="standard"
-                  onChange={firstNameChangeHandler}
+                  onChange={(e)=>{props.firstNameChangeHandler(e)}}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  value={lastname}
+                  sx={{ margin: 3, width: "80%" }}
+                  value={props.lastname}
                   id="standard-basic"
                   label="Last Name"
                   variant="standard"
-                  onChange={lastNameChangeHandler}
+                  onChange={(e) => {props.lastNameChangeHandler(e)}}
                 />
               </Grid>
 
               <Grid item xs={6}>
                 <TextField
-                  value={email}
+                  sx={{ margin: 3, width: "80%" }}
+                  value={props.email}
                   id="standard-basic"
                   label="Email"
                   variant="standard"
-                  onChange={emailChangeHandler}
+                  onChange={(e) => {props.emailChangeHandler(e)}}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  value={contact}
+                  sx={{ margin: 3, width: "80%" }}
+                  value={props.contact}
                   id="standard-basic"
                   label="Contact"
                   variant="standard"
-                  onChange={contactChangeHandler}
+                  onChange={(e) => {props.contactChangeHandler(e)}}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  value={address}
+                  sx={{ margin: 3, width: "90%" }}
+                  value={props.address}
                   id="standard-basic"
                   label="Address"
                   variant="standard"
-                  sx={{ width: "90%" }}
-                  onChange={addressChangeHandler}
+                  onChange={(e) => {props.addressChangeHandler(e)}}
                 />
               </Grid>
               <Grid item xs={8}></Grid>
-              <Grid item xs={4} style={{ marginTop: 10 }}>
-                <Button variant="contained" onClick={addCustomer}>Save</Button>
+              <Grid
+                item
+                xs={4}
+                style={{ marginTop: 10, marginBottom: 10, float: "right" }}
+              >
+                <Button variant="contained" onClick={(e)=>{props.addCustomer(e)}}>
+                  Save
+                </Button>
                 <Button
                   variant="contained"
-                  onClick={handleClose}
-                  style={{ marginLeft: 5 }}
+                  onClick={()=>{props.handleClose()}}
+                  style={{ marginLeft: 15 }}
                 >
                   Close
                 </Button>
               </Grid>
             </Grid>
-          </Paper>
+          </div>
         </Dialog>
       </div>
     </>

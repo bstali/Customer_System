@@ -76,6 +76,7 @@ exports.findOne = (req, res) => {
 
 // Update a customer by the id in the request
 exports.update = (req, res) => {
+  console.log("Request from backend", req)
   const id = req.params.id;
 
   Customers.update(req.body, {
