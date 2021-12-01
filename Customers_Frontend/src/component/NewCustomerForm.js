@@ -1,96 +1,13 @@
 import { Button, TextField, Dialog, Slide, Grid, Divider } from "@mui/material";
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function NewCustomerForm(props) {
-  console.log("add customer props", props)
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [address, setAddress] = useState("");
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8080/api/customers")
-  //     .then((response) => {
-  //       const customersData = response.data;
-  //       setCustomers(customersData);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [customers]);
-
-  // const addCustomer = () => {
-  //   // e.preventDefault();
-  //   const postData = {
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     contact,
-  //     address,
-  //   };
-
-  //   axios
-  //     .post("http://localhost:8080/api/customers", postData)
-
-  //     .then((response) => {
-  //       console.log("addresponse", response);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   setOpen(false);
-  // };
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const firstNameChangeHandler = (event) => {
-  //   setFirstname(event.target.value);
-  // };
-  // const lastNameChangeHandler = (event) => {
-  //   setLastname(event.target.value);
-  // };
-  // const emailChangeHandler = (event) => {
-  //   setEmail(event.target.value);
-  // };
-  // const contactChangeHandler = (event) => {
-  //   setContact(event.target.value);
-  // };
-  // const addressChangeHandler = (event) => {
-  //   setAddress(event.target.value);
-  // };
   return (
     <>
-      <Grid container>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
-          <h1>Customers Details</h1>
-          {/* Add Customer */}
-
-          <Button
-            variant="contained"
-            onClick={()=>{props.handleOpen()}
-              }
-            style={{ marginBottom: 10, float: "right" }}
-          >
-            Add Customer
-          </Button>
-        </Grid>
-        <Grid item xs={2}></Grid>
-      </Grid>
-
       <div>
         <Dialog
           open={props.open}
@@ -112,7 +29,9 @@ export default function NewCustomerForm(props) {
                   id="standard-basic"
                   label="First Name"
                   variant="standard"
-                  onChange={(e)=>{props.firstNameChangeHandler(e)}}
+                  onChange={(e) =>
+                    props.handleAddedCustomer(e.target.value, "firstname")
+                  }
                 />
               </Grid>
               <Grid item xs={6}>
@@ -122,7 +41,9 @@ export default function NewCustomerForm(props) {
                   id="standard-basic"
                   label="Last Name"
                   variant="standard"
-                  onChange={(e) => {props.lastNameChangeHandler(e)}}
+                  onChange={(e) =>
+                    props.handleAddedCustomer(e.target.value, "lastname")
+                  }
                 />
               </Grid>
 
@@ -133,7 +54,9 @@ export default function NewCustomerForm(props) {
                   id="standard-basic"
                   label="Email"
                   variant="standard"
-                  onChange={(e) => {props.emailChangeHandler(e)}}
+                  onChange={(e) =>
+                    props.handleAddedCustomer(e.target.value, "email")
+                  }
                 />
               </Grid>
               <Grid item xs={6}>
@@ -143,7 +66,9 @@ export default function NewCustomerForm(props) {
                   id="standard-basic"
                   label="Contact"
                   variant="standard"
-                  onChange={(e) => {props.contactChangeHandler(e)}}
+                  onChange={(e) =>
+                    props.handleAddedCustomer(e.target.value, "contact")
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -153,7 +78,9 @@ export default function NewCustomerForm(props) {
                   id="standard-basic"
                   label="Address"
                   variant="standard"
-                  onChange={(e) => {props.addressChangeHandler(e)}}
+                  onChange={(e) =>
+                    props.handleAddedCustomer(e.target.value, "address")
+                  }
                 />
               </Grid>
               <Grid item xs={8}></Grid>
@@ -162,12 +89,19 @@ export default function NewCustomerForm(props) {
                 xs={4}
                 style={{ marginTop: 10, marginBottom: 10, float: "right" }}
               >
-                <Button variant="contained" onClick={(e)=>{props.addCustomer(e)}}>
+                <Button
+                  variant="contained"
+                  onClick={(e) => {
+                    props.addCustomer(e);
+                  }}
+                >
                   Save
                 </Button>
                 <Button
                   variant="contained"
-                  onClick={()=>{props.handleClose()}}
+                  onClick={() => {
+                    props.addCustomerDialogHandler();
+                  }}
                   style={{ marginLeft: 15 }}
                 >
                   Close
