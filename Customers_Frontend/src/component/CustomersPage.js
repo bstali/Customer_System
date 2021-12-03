@@ -1,30 +1,36 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import { Grid, Button } from "@mui/material";
-import UpdateCustomerForm from "../component/UpdateCustomerForm";
-import NewCustomerForm from "../component/NewCustomerForm";
-import CustomerTable from "../component/CustomerTable";
+import UpdateCustomerForm from "./UpdateCustomerForm";
+import NewCustomerForm from "./NewCustomerForm";
+import CustomerTable from "./CustomerTable";
+import OrderForm from "./OrderForm";
 
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [selectedRow, setSelectedRow] = useState([]);
   const [updatedCustomer, setUpdatedCustomer] = useState({});
   const [addedCustomer, setAddedCustomer] = useState({});
+  const [addedOrder, setAddedOrder] = useState({});
   const [updateDialog, setUpdateDialog] = useState(false);
   const [open, setOpen] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
+  const [orderDialog, setOrderDialog] = useState(false);
 
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
-    rowSelection();
   };
-
   const updateDialogHandler = () => {
     setUpdateDialog(!updateDialog);
   };
   const addCustomerDialogHandler = () => {
     setOpen(!open);
   };
+  const orderDialogHandler = () => {
+    setOrderDialog(!orderDialog);
+  };
+
   const getAllCustomers = useCallback(() => {
     let url = `http://localhost:8080/api/customers`;
     axios
@@ -45,7 +51,7 @@ export default function Customers() {
     try {
       const response = await axios.delete(url);
       setCustomers(response.data);
-      getAllCustomers()
+      getAllCustomers();
     } catch (err) {
       alert(err);
     }
@@ -59,7 +65,7 @@ export default function Customers() {
     try {
       const response = await axios.post(url, addedCustomer);
       setCustomers(response.data);
-      getAllCustomers()
+      getAllCustomers();
     } catch (err) {
       alert(err);
     }
@@ -72,11 +78,26 @@ export default function Customers() {
     try {
       const response = await axios.put(url, updatedCustomer);
       setCustomers(response.data);
-      getAllCustomers()
+      getAllCustomers();
     } catch (err) {
       alert(err);
     }
     setUpdateDialog(false);
+  }
+
+  async function addOrder() {
+    // e.preventDefault();
+    const order = addedOrder
+    order.customerid = selectedRow[0].id;
+    console.log("order", order)
+    const url = `http://localhost:8080/api/customers/order`;
+    try {
+    const response = await axios.post(url, order);
+      setOrders(response.data);
+    } catch (err) {
+      alert(err);
+    }
+    setOrderDialog(false);
   }
 
   const rowSelection = (id) => {
@@ -125,6 +146,18 @@ export default function Customers() {
     }
   };
 
+  const handleAddOrder = (data, key) => {
+    if (key === "mealname") {
+      setAddedOrder({ ...addedOrder, ...{ mealname: data } });
+    }
+    if (key === "mealcatagory") {
+      setAddedOrder({ ...addedOrder, ...{ mealcatagory: data } });
+    }
+    if (key === "restaurantname") {
+      setAddedOrder({ ...addedOrder, ...{ restaurantname: data } });
+    }
+  };
+
   return (
     <>
       <Grid container>
@@ -169,6 +202,14 @@ export default function Customers() {
             rowSelection={rowSelection}
             open={confirmationDialog}
             confirmationDialogHandler={confirmationDialogHandler}
+            orderDialogHandler={orderDialogHandler}
+          />
+          <OrderForm
+            open={orderDialog}
+            orderDialogHandler={orderDialogHandler}
+            addOrder= {addOrder}
+            handleAddOrder={handleAddOrder}
+            selectedRows={selectedRow}
           />
         </Grid>
         <Grid item xs={2}></Grid>

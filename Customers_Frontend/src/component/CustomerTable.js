@@ -18,7 +18,8 @@ export default function CustomerTable(props) {
         <Button
           variant="contained"
           color="primary"
-          style={{ width: ".2vw", fontSize: "10px" }}
+          size="small"
+          style={{marginLeft: 16, minWidth: ".2vw", fontSize: "10px" }}
           onClick={() => {props.confirmationDialogHandler()}}
         >
           Delete
@@ -27,10 +28,19 @@ export default function CustomerTable(props) {
           variant="contained"
           color="primary"
           size="small"
-          style={{ marginLeft: 16, width: ".2vw", fontSize: "10px" }}
+          style={{ marginLeft: 16, minWidth: ".2vw", fontSize: "10px" }}
           onClick={() => props.updateDialogHandler()}
         >
           Update
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          style={{ marginLeft: 16, minWidth: ".2vw", fontSize: "10px" }}
+          onClick={() => props.orderDialogHandler()}
+        >
+          add Order
         </Button>
       </strong>
     );
@@ -46,7 +56,7 @@ export default function CustomerTable(props) {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 300,
       renderCell: ActionButtons,
     },
   ];

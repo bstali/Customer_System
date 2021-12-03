@@ -5,7 +5,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function NewCustomerForm(props) {
+export default function OrderForm(props) {
+  const selectedRow = props.selectedRows;
   return (
     <>
       <div>
@@ -18,19 +19,19 @@ export default function NewCustomerForm(props) {
           }}
         >
           <div>
-            <h3 style={{ textAlign: "center" }}>Add Customer Details</h3>
+            <h3 style={{ textAlign: "center" }}>Add Order Details</h3>
             <Divider />
-
+            {selectedRow.map((selectedCustomer) => (
             <Grid container>
               <Grid item xs={6}>
                 <TextField
                   sx={{ margin: 3, width: "80%" }}
                   // value={props.firstname}
                   id="standard-basic"
-                  label="First Name"
+                  label="Meal Name"
                   variant="standard"
                   onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "firstname")
+                    props.handleAddOrder(e.target.value, "mealname")
                   }
                 />
               </Grid>
@@ -39,10 +40,10 @@ export default function NewCustomerForm(props) {
                   sx={{ margin: 3, width: "80%" }}
                   // value={props.lastname}
                   id="standard-basic"
-                  label="Last Name"
+                  label="Meal Catagory"
                   variant="standard"
                   onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "lastname")
+                    props.handleAddOrder(e.target.value, "mealcatagory")
                   }
                 />
               </Grid>
@@ -52,36 +53,29 @@ export default function NewCustomerForm(props) {
                   sx={{ margin: 3, width: "80%" }}
                   // value={props.email}
                   id="standard-basic"
-                  label="Email"
+                  label="Restaurant Name"
                   variant="standard"
                   onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "email")
+                    props.handleAddOrder(e.target.value, "restaurantname")
                   }
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  sx={{ margin: 3, width: "80%" }}
-                  // value={props.contact}
-                  id="standard-basic"
-                  label="Contact"
-                  variant="standard"
-                  onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "contact")
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  sx={{ margin: 3, width: "90%" }}
-                  // value={props.address}
-                  id="standard-basic"
-                  label="Address"
-                  variant="standard"
-                  onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "address")
-                  }
-                />
+                
+              {/* <TextField
+                    sx={{ margin: 3, width: "90%" }}
+                    defaultValue={selectedCustomer.id}
+                    id="standard-basic"
+                    label="Cutomer ID"
+                    variant="standard"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onChange={(e) =>
+                      props.handleAddOrder(e.target.value, "customerid")
+                    }
+                  /> */}
+               
               </Grid>
               <Grid item xs={8}></Grid>
               <Grid
@@ -89,18 +83,13 @@ export default function NewCustomerForm(props) {
                 xs={4}
                 style={{ marginTop: 10, marginBottom: 10, float: "right" }}
               >
-                <Button
-                  variant="contained"
-                  onClick={(e) => {
-                    props.addCustomer(e);
-                  }}
-                >
+                <Button variant="contained" onClick={() => props.addOrder()}>
                   Save
                 </Button>
                 <Button
                   variant="contained"
                   onClick={() => {
-                    props.addCustomerDialogHandler();
+                    props.orderDialogHandler();
                   }}
                   style={{ marginLeft: 15 }}
                 >
@@ -108,6 +97,8 @@ export default function NewCustomerForm(props) {
                 </Button>
               </Grid>
             </Grid>
+            ))}
+
           </div>
         </Dialog>
       </div>

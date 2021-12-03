@@ -2,7 +2,7 @@ const db = require("../models");
 const Customers = db.customers;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new customer
 exports.create = async (req, res) => {
   // Validate request
   if (!req.body.firstname) {
@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     return;
   }
 
-  // Create a Tutorial
+  // Create a customer
   const customer = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -122,3 +122,4 @@ exports.delete = async (req, res) => {
 
 // // Find all published Tutorials
 // exports.findAllPublished = (req, res) => {};
+
