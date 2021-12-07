@@ -31,24 +31,24 @@ export default function UpdateCustomerForm(props) {
                 <Grid item xs={6} key={selectedCustomer.id}>
                   <TextField
                     sx={{ margin: 3, width: "80%" }}
-                    defaultValue={selectedCustomer.firstname}
+                    defaultValue={selectedCustomer.firstName}
                     id="standard-basic"
                     label="First Name"
                     variant="standard"
                     onChange={(e) =>
-                      props.handleUpdatedCustomer(e.target.value, "firstname")
+                      props.handleUpdatedCustomer(e.target.value, "firstName")
                     }
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
                     sx={{ margin: 3, width: "80%" }}
-                    defaultValue={selectedCustomer.lastname}
+                    defaultValue={selectedCustomer.lastName}
                     id="standard-basic"
                     label="Last Name"
                     variant="standard"
                     onChange={(e) =>
-                      props.handleUpdatedCustomer(e.target.value, "lastname")
+                      props.handleUpdatedCustomer(e.target.value, "lastName")
                     }
                   />
                 </Grid>

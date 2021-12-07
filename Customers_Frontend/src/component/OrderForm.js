@@ -72,7 +72,7 @@ export default function OrderForm(props) {
                       readOnly: true,
                     }}
                     onChange={(e) =>
-                      props.handleAddOrder(e.target.value, "customerid")
+                      props.handleAddOrder(e.target.value, "")
                     }
                   /> */}
                

@@ -1,21 +1,12 @@
-const db = require("../models");
+import db from "../models";
 const Customers = db.customers;
-const Op = db.Sequelize.Op;
 
 // Create and Save a new customer
 exports.create = async (req, res) => {
-  // Validate request
-  if (!req.body.firstname) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-
   // Create a customer
   const customer = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     address: req.body.address,
     contact: req.body.contact,
     email: req.body.email,
@@ -35,13 +26,9 @@ exports.create = async (req, res) => {
 
 // Retrieve all customers from the database.
 exports.findAll = async (req, res) => {
-  const firstname = req.query.firstname;
-  var condition = firstname
-    ? { firstname: { [Op.like]: `%${firstname}%` } }
-    : null;
-  try {
-    const data = await Customers.findAll({ where: condition });
 
+  try {
+    const data = await Customers.findAll({include: ["orders"]  });
     res.send(data);
   } catch (err) {
     res.status(500).send({
@@ -54,24 +41,23 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
   const id = req.params.id;
   try {
-    const data = await Customers.findByPk(id);
+    const data = await Customers.findByPk(id, { include: ["orders"] });
     if (data) {
       res.send(data);
     } else {
       res.status(404).send({
-        message: `Cannot find Tutorial with id=${id}.`,
+        message: `Cannot find cutomer with id=${id}.`,
       });
     }
   } catch (err) {
     res.status(500).send({
-      message: "Error retrieving Tutorial with id=" + id,
+      message: "Error retrieving customer with id=" + id,
     });
   }
 };
 
 // Update a customer by the id in the request
 exports.update = async (req, res) => {
-  console.log("Request from backend", req);
   const id = req.params.id;
   try {
     const num = await Customers.update(req.body, {

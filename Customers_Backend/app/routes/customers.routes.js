@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Create a new customer
+//   // Create a new customer
   router.post("/", customers.create);
 
   // Retrieve all customers
@@ -18,14 +18,14 @@ module.exports = (app) => {
   // Retrieve a single customer with id
   router.get("/:id", customers.findOne);
 
-  // Update a Tutorial with id
+  // Update a customer with id
   router.put("/:id", customers.update);
 
-  // Delete a Tutorial with id
+  // Delete a customer with id
   router.delete("/:id", customers.delete);
 
-  // // Delete all Tutorials
-  // router.delete("/", tutorials.deleteAll);
+  // // Delete all customers
+  // router.delete("/", customers.deleteAll);
 
   // Create a new order
   router.post("/order", orders.create);

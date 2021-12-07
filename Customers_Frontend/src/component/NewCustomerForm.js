@@ -30,7 +30,7 @@ export default function NewCustomerForm(props) {
                   label="First Name"
                   variant="standard"
                   onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "firstname")
+                    props.handleAddedCustomer(e.target.value, "firstName")
                   }
                 />
               </Grid>
@@ -42,7 +42,7 @@ export default function NewCustomerForm(props) {
                   label="Last Name"
                   variant="standard"
                   onChange={(e) =>
-                    props.handleAddedCustomer(e.target.value, "lastname")
+                    props.handleAddedCustomer(e.target.value, "lastName")
                   }
                 />
               </Grid>

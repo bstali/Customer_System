@@ -1,23 +1,15 @@
-const db = require("../models");
+import db from "../models";
 const Orders = db.orders;
-const Op = db.Sequelize.Op;
 
 // Create and Save a new order
 exports.create = async (req, res) => {
-    // Validate request
-    if (!req.body.mealname) {
-      res.status(400).send({
-        message: "Content can not be empty!",
-      });
-      return;
-    }
   
     // Create a order
     const order = {
-      mealname: req.body.mealname,
-      mealcatagory: req.body.mealcatagory,
-      restaurantname: req.body.restaurantname,
-      customerid: req.body.customerid,
+      mealName: req.body.mealname,
+      mealCatagory: req.body.mealcatagory,
+      restaurantName: req.body.restaurantname,
+      customerId: req.body.customerId,
     };
   
     // Save order in the database
@@ -33,19 +25,15 @@ exports.create = async (req, res) => {
   };
   
   // Retrieve all orders from the database.
-  exports.findAll = async (req, res) => {
-    const mealname = req.query.mealname;
-    var condition = mealname
-      ? { mealname: { [Op.like]: `%${mealname}%` } }
-      : null;
-    try {
-      const data = await Orders.findAll({ where: condition });
+  // exports.findAll = async (req, res) => {
+  //   try {
+  //     const data = await Orders.findAll();
   
-      res.send(data);
-    } catch (err) {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving orders.",
-      });
-    }
-  };
+  //     res.send(data);
+  //   } catch (err) {
+  //     res.status(500).send({
+  //       message: err.message || "Some error occurred while retrieving orders.",
+  //     });
+  //   }
+  // };
   

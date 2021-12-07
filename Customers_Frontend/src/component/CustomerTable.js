@@ -48,14 +48,15 @@ export default function CustomerTable(props) {
 
   const columns = [
     // { field: "id", headerName: "ID", width: 70 },
-    { field: "firstname", headerName: "First name", width: 130 },
-    { field: "lastname", headerName: "Last name", width: 130 },
+    { field: "firstName", headerName: "First name", width: 130 },
+    { field: "lastName", headerName: "Last name", width: 130 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "contact", headerName: "Contact", width: 130 },
     { field: "address", headerName: "Address", width: 130 },
     {
       field: "action",
       headerName: "Action",
+      headerAlign: 'center',
       width: 300,
       renderCell: ActionButtons,
     },

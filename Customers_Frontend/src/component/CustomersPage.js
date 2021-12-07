@@ -17,7 +17,7 @@ export default function Customers() {
   const [open, setOpen] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
-
+console.log("customers",customers)
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -86,10 +86,8 @@ export default function Customers() {
   }
 
   async function addOrder() {
-    // e.preventDefault();
     const order = addedOrder
-    order.customerid = selectedRow[0].id;
-    console.log("order", order)
+    order.customerId = selectedRow[0].id;
     const url = `http://localhost:8080/api/customers/order`;
     try {
     const response = await axios.post(url, order);
@@ -110,12 +108,15 @@ export default function Customers() {
     }
   };
 
-  const handleUpdatedCustomer = (data, key) => {
-    if (key === "firstname") {
-      setUpdatedCustomer({ ...updatedCustomer, ...{ firstname: data } });
+  const handleUpdatedCustomer = (data, key) => {  
+    // const customUP =  UpdatedCustomer;
+    // customUp[key] = data;
+    // setUpdatedCustomer({ ...updatedCustomer, ...customUP });
+    if (key === "firstName") {
+      setUpdatedCustomer({ ...updatedCustomer, ...{ firstName: data } });
     }
-    if (key === "lastname") {
-      setUpdatedCustomer({ ...updatedCustomer, ...{ lastname: data } });
+    if (key === "lastName") {
+      setUpdatedCustomer({ ...updatedCustomer, ...{ lastName: data } });
     }
     if (key === "email") {
       setUpdatedCustomer({ ...updatedCustomer, ...{ email: data } });
@@ -129,11 +130,11 @@ export default function Customers() {
   };
 
   const handleAddedCustomer = (data, key) => {
-    if (key === "firstname") {
-      setAddedCustomer({ ...addedCustomer, ...{ firstname: data } });
+    if (key === "firstName") {
+      setAddedCustomer({ ...addedCustomer, ...{ firstName: data } });
     }
-    if (key === "lastname") {
-      setAddedCustomer({ ...addedCustomer, ...{ lastname: data } });
+    if (key === "lastName") {
+      setAddedCustomer({ ...addedCustomer, ...{ lastName: data } });
     }
     if (key === "email") {
       setAddedCustomer({ ...addedCustomer, ...{ email: data } });
