@@ -1,6 +1,6 @@
 import db from "../models";
 const Orders = db.orders;
-
+const Customers = db.customers;
 // Create and Save a new order
 exports.create = async (req, res) => {
   
@@ -25,15 +25,23 @@ exports.create = async (req, res) => {
   };
   
   // Retrieve all orders from the database.
-  // exports.findAll = async (req, res) => {
-  //   try {
-  //     const data = await Orders.findAll();
-  
-  //     res.send(data);
-  //   } catch (err) {
-  //     res.status(500).send({
-  //       message: err.message || "Some error occurred while retrieving orders.",
-  //     });
-  //   }
-  // };
+  exports.findAll = async (req, res) => {
+    try {
+      const data = await Orders.findAll({
+        include: [
+          {
+            model: Customers,
+            attributes: [],
+          },
+        ],
+        group: ["Orders.id"],
+      
+      });
+      res.send(data);
+    } catch (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving orders.",
+      });
+    }
+  };
   

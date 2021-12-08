@@ -1,5 +1,7 @@
 import db from "../models";
 const Customers = db.customers;
+const Orders = db.orders;
+import Sequelize from "sequelize";
 
 // Create and Save a new customer
 exports.create = async (req, res) => {
@@ -26,9 +28,22 @@ exports.create = async (req, res) => {
 
 // Retrieve all customers from the database.
 exports.findAll = async (req, res) => {
-
   try {
-    const data = await Customers.findAll({include: ["orders"]  });
+    const data = await Customers.findAll({
+      attributes: {
+        include: [
+          [Sequelize.fn("COUNT", Sequelize.col("orders.id")), "ordersCount"],
+        ],
+      },
+      include: [
+        {
+          model: Orders,
+          as: "orders",
+          attributes: [],
+        },
+      ],
+      group: ["Customers.id"],
+    });
     res.send(data);
   } catch (err) {
     res.status(500).send({
@@ -108,4 +123,3 @@ exports.delete = async (req, res) => {
 
 // // Find all published Tutorials
 // exports.findAllPublished = (req, res) => {};
-

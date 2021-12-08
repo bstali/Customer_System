@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Customers.associate = function (models) {
     // associations can be defined here
-    Customers.hasMany(models.orders, { as: "orders" });
+    Customers.hasMany(models.orders, {as: "orders"});
   };
 
   return Customers;

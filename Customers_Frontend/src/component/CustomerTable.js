@@ -53,6 +53,7 @@ export default function CustomerTable(props) {
     { field: "email", headerName: "Email", width: 200 },
     { field: "contact", headerName: "Contact", width: 130 },
     { field: "address", headerName: "Address", width: 130 },
+    { field: "ordersCount", headerName: "Orders", width: 130 },
     {
       field: "action",
       headerName: "Action",

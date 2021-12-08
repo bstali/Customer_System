@@ -42,6 +42,7 @@ console.log("customers",customers)
         console.log(err);
       });
   }, []);
+
   useEffect(() => {
     getAllCustomers();
   }, [getAllCustomers]);
