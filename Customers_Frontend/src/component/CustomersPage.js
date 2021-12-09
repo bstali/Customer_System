@@ -5,6 +5,7 @@ import UpdateCustomerForm from "./UpdateCustomerForm";
 import NewCustomerForm from "./NewCustomerForm";
 import CustomerTable from "./CustomerTable";
 import OrderForm from "./OrderForm";
+import OrderTable from "./OrderTable";
 
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -17,7 +18,7 @@ export default function Customers() {
   const [open, setOpen] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
-console.log("customers",customers)
+  console.log("customers", customers);
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -87,12 +88,13 @@ console.log("customers",customers)
   }
 
   async function addOrder() {
-    const order = addedOrder
+    const order = addedOrder;
     order.customerId = selectedRow[0].id;
     const url = `http://localhost:8080/api/customers/order`;
     try {
-    const response = await axios.post(url, order);
+      const response = await axios.post(url, order);
       setOrders(response.data);
+      getAllCustomers();
     } catch (err) {
       alert(err);
     }
@@ -109,7 +111,7 @@ console.log("customers",customers)
     }
   };
 
-  const handleUpdatedCustomer = (data, key) => {  
+  const handleUpdatedCustomer = (data, key) => {
     // const customUP =  UpdatedCustomer;
     // customUp[key] = data;
     // setUpdatedCustomer({ ...updatedCustomer, ...customUP });
@@ -198,8 +200,8 @@ console.log("customers",customers)
 
           <CustomerTable
             customersData={customers}
-            updateDialogHandler={updateDialogHandler}
             selectedRows={selectedRow}
+            updateDialogHandler={updateDialogHandler}
             deleteCustomer={deleteCustomer}
             rowSelection={rowSelection}
             open={confirmationDialog}
@@ -209,10 +211,13 @@ console.log("customers",customers)
           <OrderForm
             open={orderDialog}
             orderDialogHandler={orderDialogHandler}
-            addOrder= {addOrder}
+            addOrder={addOrder}
             handleAddOrder={handleAddOrder}
-            selectedRows={selectedRow}
           />
+
+          <OrderTable customersData={customers} selectedRows={selectedRow} 
+            rowSelection={rowSelection}
+            />
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>

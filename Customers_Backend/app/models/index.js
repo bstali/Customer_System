@@ -6,6 +6,7 @@ const basename = path.basename(__filename);
 const dbConfig = require("../config/db.config.js");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+  logging: true,
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   operatorsAliases: false,

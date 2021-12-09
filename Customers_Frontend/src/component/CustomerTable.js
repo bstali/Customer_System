@@ -11,7 +11,14 @@ import {
 
 export default function CustomerTable(props) {
   const customers = props.customersData;
-
+  // const selectedRow =  props.selectedRows;
+  // const orders = selectedRow.map(cus => cus.ordersCount)
+// console.log("orders from table", orders)
+  // const showOrders = () => {
+  //   return (
+      // <p style={{cursor:"pointer"}}>{customers.map(cus => cus.ordersCount)}</p>
+  //   )
+  // }
   const ActionButtons = () => {
     return (
       <strong>

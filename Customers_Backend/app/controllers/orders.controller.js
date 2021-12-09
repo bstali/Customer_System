@@ -27,16 +27,7 @@ exports.create = async (req, res) => {
   // Retrieve all orders from the database.
   exports.findAll = async (req, res) => {
     try {
-      const data = await Orders.findAll({
-        include: [
-          {
-            model: Customers,
-            attributes: [],
-          },
-        ],
-        group: ["Orders.id"],
-      
-      });
+      const data = await Orders.findAll();
       res.send(data);
     } catch (err) {
       res.status(500).send({

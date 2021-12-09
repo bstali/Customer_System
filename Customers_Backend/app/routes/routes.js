@@ -1,4 +1,4 @@
-const { orders } = require("../models");
+
 
 module.exports = (app) => {
   const customers = require("../controllers/customers.controller");
@@ -31,7 +31,7 @@ module.exports = (app) => {
   router.post("/order", orders.create);
 
   // Retrieve all orders
-  router.get("/:id/orders", orders.findAll);
+  router.get("/all/orders", orders.findAll);
 
   app.use("/api/customers", router);
 };

@@ -32,17 +32,9 @@ exports.findAll = async (req, res) => {
     const data = await Customers.findAll({
       attributes: {
         include: [
-          [Sequelize.fn("COUNT", Sequelize.col("orders.id")), "ordersCount"],
-        ],
-      },
-      include: [
-        {
-          model: Orders,
-          as: "orders",
-          attributes: [],
-        },
-      ],
-      group: ["Customers.id"],
+          [Sequelize.fn("COUNT", Sequelize.col("Customers.id")), "ordersCount"],
+        ]},
+      group: ["Customers.id"]
     });
     res.send(data);
   } catch (err) {

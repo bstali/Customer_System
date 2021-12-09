@@ -6,7 +6,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function OrderForm(props) {
-  const selectedRow = props.selectedRows;
   return (
     <>
       <div>
@@ -21,7 +20,6 @@ export default function OrderForm(props) {
           <div>
             <h3 style={{ textAlign: "center" }}>Add Order Details</h3>
             <Divider />
-            {selectedRow.map((selectedCustomer) => (
             <Grid container>
               <Grid item xs={6}>
                 <TextField
@@ -60,23 +58,6 @@ export default function OrderForm(props) {
                   }
                 />
               </Grid>
-              <Grid item xs={6}>
-                
-              {/* <TextField
-                    sx={{ margin: 3, width: "90%" }}
-                    defaultValue={selectedCustomer.id}
-                    id="standard-basic"
-                    label="Cutomer ID"
-                    variant="standard"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    onChange={(e) =>
-                      props.handleAddOrder(e.target.value, "")
-                    }
-                  /> */}
-               
-              </Grid>
               <Grid item xs={8}></Grid>
               <Grid
                 item
@@ -97,7 +78,6 @@ export default function OrderForm(props) {
                 </Button>
               </Grid>
             </Grid>
-            ))}
 
           </div>
         </Dialog>

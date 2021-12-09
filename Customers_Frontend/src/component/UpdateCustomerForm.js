@@ -7,7 +7,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function UpdateCustomerForm(props) {
   const selectedRows = props.selectedRows;
-
   return (
     <>
       <div>
