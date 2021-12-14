@@ -11,23 +11,31 @@ import {
 
 export default function CustomerTable(props) {
   const customers = props.customersData;
-  // const selectedRow =  props.selectedRows;
-  // const orders = selectedRow.map(cus => cus.ordersCount)
-// console.log("orders from table", orders)
-  // const showOrders = () => {
-  //   return (
-      // <p style={{cursor:"pointer"}}>{customers.map(cus => cus.ordersCount)}</p>
-  //   )
-  // }
+  // const orders = customers.map((customer) => customer.ordersCount);
+  // const ordersCount = orders.values();
+
+  const showOrders = () => {
+    return (
+      <Button
+        // style={{ cursor: "pointer", color: "blue" }}
+        onClick={() => props.getOrdersOfCustomer()}
+      >
+        {/* {customers.map((customer) => customer.ordersCount)} */}
+        show orders
+      </Button>
+    );
+  };
   const ActionButtons = () => {
     return (
-      <strong>
+      <div>
         <Button
           variant="contained"
           color="primary"
           size="small"
-          style={{marginLeft: 16, minWidth: ".2vw", fontSize: "10px" }}
-          onClick={() => {props.confirmationDialogHandler()}}
+          style={{ marginLeft: 16, minWidth: ".2vw", fontSize: "10px" }}
+          onClick={() => {
+            props.confirmationDialogHandler();
+          }}
         >
           Delete
         </Button>
@@ -49,22 +57,26 @@ export default function CustomerTable(props) {
         >
           add Order
         </Button>
-      </strong>
+      </div>
     );
   };
 
   const columns = [
-    // { field: "id", headerName: "ID", width: 70 },
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "contact", headerName: "Contact", width: 130 },
     { field: "address", headerName: "Address", width: 130 },
-    { field: "ordersCount", headerName: "Orders", width: 130 },
+    {
+      field: "ordersCount",
+      headerName: "Orders",
+      width: 130,
+      renderCell: showOrders,
+    },
     {
       field: "action",
       headerName: "Action",
-      headerAlign: 'center',
+      headerAlign: "center",
       width: 300,
       renderCell: ActionButtons,
     },
@@ -86,7 +98,9 @@ export default function CustomerTable(props) {
       <div>
         <Dialog
           open={props.open}
-          onClose={() => {props.confirmationDialogHandler()}}
+          onClose={() => {
+            props.confirmationDialogHandler();
+          }}
         >
           <DialogTitle id="alert-dialog-title">{"Confirmation"}</DialogTitle>
           <DialogContent>
@@ -102,7 +116,12 @@ export default function CustomerTable(props) {
             >
               Yes
             </Button>
-            <Button onClick={() => {props.confirmationDialogHandler()}} autoFocus>
+            <Button
+              onClick={() => {
+                props.confirmationDialogHandler();
+              }}
+              autoFocus
+            >
               No
             </Button>
           </DialogActions>

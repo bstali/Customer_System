@@ -34,6 +34,9 @@ exports.findAll = async (req, res) => {
         include: [
           [Sequelize.fn("COUNT", Sequelize.col("Customers.id")), "ordersCount"],
         ]},
+        include: [{
+          model: Orders, attributes: []
+      }],
       group: ["Customers.id"]
     });
     res.send(data);

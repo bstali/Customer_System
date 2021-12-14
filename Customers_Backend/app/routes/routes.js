@@ -33,5 +33,8 @@ module.exports = (app) => {
   // Retrieve all orders
   router.get("/all/orders", orders.findAll);
 
+  // Retrieve all orders
+  router.get("/orders/:id", orders.findAllByCustomerId);
+
   app.use("/api/customers", router);
 };

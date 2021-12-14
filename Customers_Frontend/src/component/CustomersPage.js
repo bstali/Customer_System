@@ -10,6 +10,7 @@ import OrderTable from "./OrderTable";
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [ordersOfCustomer, setOrdersOfCustomer] = useState([]);
   const [selectedRow, setSelectedRow] = useState([]);
   const [updatedCustomer, setUpdatedCustomer] = useState({});
   const [addedCustomer, setAddedCustomer] = useState({});
@@ -18,7 +19,10 @@ export default function Customers() {
   const [open, setOpen] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
-  console.log("customers", customers);
+  const [orderDetailsDialog, setOrderDetailsDialog] = useState(false);
+//   console.log("customers", customers);
+//   console.log("selectedcustomerid", selectedRow);
+// console.log("customer orders data", ordersOfCustomer)
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -32,8 +36,13 @@ export default function Customers() {
     setOrderDialog(!orderDialog);
   };
 
+  const orderDetailsDialogHandler = () => {
+    setOrderDetailsDialog(!orderDetailsDialog);
+  };
+
+ 
   const getAllCustomers = useCallback(() => {
-    let url = `http://localhost:8080/api/customers`;
+    const url = `http://localhost:8080/api/customers`;
     axios
       .get(url)
       .then((response) => {
@@ -57,8 +66,7 @@ export default function Customers() {
     } catch (err) {
       alert(err);
     }
-    setSelectedRow([]);
-    setConfirmationDialog(false);
+    setConfirmationDialog(!confirmationDialog);
   }
 
   async function addCustomer(e) {
@@ -71,7 +79,7 @@ export default function Customers() {
     } catch (err) {
       alert(err);
     }
-    setOpen(false);
+    setOpen(!open);
   }
 
   async function updateCustomer(e) {
@@ -84,7 +92,7 @@ export default function Customers() {
     } catch (err) {
       alert(err);
     }
-    setUpdateDialog(false);
+    setUpdateDialog(!updateDialog);
   }
 
   async function addOrder() {
@@ -98,10 +106,24 @@ export default function Customers() {
     } catch (err) {
       alert(err);
     }
-    setOrderDialog(false);
+    setOrderDialog(!orderDialog);
+  }
+
+ const getOrdersOfCustomer = async () => {
+    console.log("order api hit")
+    const url = `http://localhost:8080/api/customers/orders/${selectedRow[0].id}`;
+    try {
+      const response = await axios.get(url);
+      setOrdersOfCustomer(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+    setOrderDetailsDialog(!orderDetailsDialog);
+  
   }
 
   const rowSelection = (id) => {
+    console.log("selection function hit");
     if (id) {
       const selectedCutomerId = id[0];
       const selectedCustomer = Object.values(customers).filter(
@@ -110,6 +132,7 @@ export default function Customers() {
       setSelectedRow(selectedCustomer);
     }
   };
+
 
   const handleUpdatedCustomer = (data, key) => {
     // const customUP =  UpdatedCustomer;
@@ -207,6 +230,8 @@ export default function Customers() {
             open={confirmationDialog}
             confirmationDialogHandler={confirmationDialogHandler}
             orderDialogHandler={orderDialogHandler}
+            getOrdersOfCustomer={getOrdersOfCustomer}
+            orderDetailsDialogHandler={orderDetailsDialogHandler}
           />
           <OrderForm
             open={orderDialog}
@@ -215,9 +240,11 @@ export default function Customers() {
             handleAddOrder={handleAddOrder}
           />
 
-          <OrderTable customersData={customers} selectedRows={selectedRow} 
-            rowSelection={rowSelection}
-            />
+          <OrderTable
+            open={orderDetailsDialog}
+            orderDetailsDialogHandler={orderDetailsDialogHandler}
+            ordersOfCustomer={ordersOfCustomer}
+          />
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>
