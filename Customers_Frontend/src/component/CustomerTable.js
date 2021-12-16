@@ -10,19 +10,15 @@ import {
 } from "@mui/material";
 
 export default function CustomerTable(props) {
-  const customers = props.customersData;
-  // const orders = customers.map((customer) => customer.ordersCount);
-  // const ordersCount = orders.values();
-
-  const showOrders = () => {
+  const customers = props.customers;
+  const showOrders = (e) => {
     return (
-      <Button
-        // style={{ cursor: "pointer", color: "blue" }}
-        onClick={() => props.getOrdersOfCustomer()}
+      <p
+        style={{ cursor: "pointer", color: "blue" }}
+        onClick={() => props.getOrdersOfCustomer(e.row.id)}
       >
-        {/* {customers.map((customer) => customer.ordersCount)} */}
-        show orders
-      </Button>
+        {e.row.ordersCount}
+      </p>
     );
   };
   const ActionButtons = () => {
@@ -70,6 +66,7 @@ export default function CustomerTable(props) {
     {
       field: "ordersCount",
       headerName: "Orders",
+      headerAlign: "center",
       width: 130,
       renderCell: showOrders,
     },

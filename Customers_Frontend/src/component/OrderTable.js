@@ -27,12 +27,10 @@ export default function OrdersTable(props) {
         boxShadow: "inset 0 0 0 1000px rgba(0, 0, 0, 0.7)",
       }}
     >
-      {!ordersOfCustomer ? (
-        <CircularProgress />
-      ) : (
+      {ordersOfCustomer ? (
         <div
           style={{
-            maxHeight: 300,
+            height: "100%",
             minWidth: "80%",
             padding: 20,
             textAlign: "center",
@@ -56,15 +54,17 @@ export default function OrdersTable(props) {
                     <TableCell component="th" scope="row">
                       {order.id}
                     </TableCell>
-                    <TableCell align="right">{order.mealName}</TableCell>
-                    <TableCell align="right">{order.mealCatagory}</TableCell>
-                    <TableCell align="right">{order.restaurantName}</TableCell>
+                    <TableCell align="center">{order.mealName}</TableCell>
+                    <TableCell align="center">{order.mealCatagory}</TableCell>
+                    <TableCell align="center">{order.restaurantName}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
+      ) : (
+        <CircularProgress />
       )}
     </Dialog>
   );

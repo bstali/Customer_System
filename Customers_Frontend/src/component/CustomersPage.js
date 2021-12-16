@@ -20,9 +20,8 @@ export default function Customers() {
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
   const [orderDetailsDialog, setOrderDetailsDialog] = useState(false);
-//   console.log("customers", customers);
-//   console.log("selectedcustomerid", selectedRow);
-// console.log("customer orders data", ordersOfCustomer)
+  console.log("customers", customers);
+
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -109,9 +108,9 @@ export default function Customers() {
     setOrderDialog(!orderDialog);
   }
 
- const getOrdersOfCustomer = async () => {
-    console.log("order api hit")
-    const url = `http://localhost:8080/api/customers/orders/${selectedRow[0].id}`;
+ async function getOrdersOfCustomer(id) {
+    
+    const url = `http://localhost:8080/api/customers/orders/${id}`;
     try {
       const response = await axios.get(url);
       setOrdersOfCustomer(response.data);
@@ -123,7 +122,6 @@ export default function Customers() {
   }
 
   const rowSelection = (id) => {
-    console.log("selection function hit");
     if (id) {
       const selectedCutomerId = id[0];
       const selectedCustomer = Object.values(customers).filter(
@@ -187,7 +185,7 @@ export default function Customers() {
 
   return (
     <>
-      <Grid container>
+      <Grid container style={{marginTop: 70}}>
         <Grid xs={2}></Grid>
         <Grid item xs={8}>
           <h1>Customers Details</h1>
@@ -222,8 +220,7 @@ export default function Customers() {
           />
 
           <CustomerTable
-            customersData={customers}
-            selectedRows={selectedRow}
+          customers={customers}
             updateDialogHandler={updateDialogHandler}
             deleteCustomer={deleteCustomer}
             rowSelection={rowSelection}
@@ -231,7 +228,6 @@ export default function Customers() {
             confirmationDialogHandler={confirmationDialogHandler}
             orderDialogHandler={orderDialogHandler}
             getOrdersOfCustomer={getOrdersOfCustomer}
-            orderDetailsDialogHandler={orderDetailsDialogHandler}
           />
           <OrderForm
             open={orderDialog}

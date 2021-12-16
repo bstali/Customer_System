@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 },
 });
 
-export default function AavBar() {
+export default function NavBar() {
   const classes = useStyles();
 
   return (
