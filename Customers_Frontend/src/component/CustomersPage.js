@@ -20,7 +20,6 @@ export default function Customers() {
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
   const [orderDetailsDialog, setOrderDetailsDialog] = useState(false);
-  console.log("customers", customers);
 
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
