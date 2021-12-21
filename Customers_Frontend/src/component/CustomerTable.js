@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Button,
@@ -11,6 +11,8 @@ import {
 
 export default function CustomerTable(props) {
   const customers = props.customers;
+  console.log("customers", customers)
+  const customersData = customers.customersData;
   const showOrders = (e) => {
     return (
       <p
@@ -79,19 +81,36 @@ export default function CustomerTable(props) {
     },
   ];
 
+  const [rowsState, setRowsState] = React.useState({
+    page: 0,
+    pageSize: 10,
+    rows: [],
+    loading: false,
+  });
+
   return (
     <>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 500, width: "100%" }}>
         <DataGrid
-          rows={customers}
+          rows={customers.customersData}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
+          // pagination
+          // paginationMode="server"
+          rowCount={customers.totalCustomers}
+          rowsPerPageOptions={[]}
+          pageSize={props.pageSize}
+          // rowsPerPageOptions={[5]}
           onSelectionModelChange={(e) => {
             props.rowSelection(e);
           }}
         />
       </div>
+      <Button onClick={()=> props.previousPage()}>
+        back 
+      </Button>
+      <Button onClick={()=> props.nextPage()}>
+        next 
+      </Button>
       <div>
         <Dialog
           open={props.open}

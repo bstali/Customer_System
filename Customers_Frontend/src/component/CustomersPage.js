@@ -20,7 +20,18 @@ export default function Customers() {
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [orderDialog, setOrderDialog] = useState(false);
   const [orderDetailsDialog, setOrderDetailsDialog] = useState(false);
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1)
+  console.log("currentPage", currentPage)
 
+  const nextPage = () => {
+    setCurrentPage(currentPage+1)
+  }
+
+  const previousPage = () => {
+    setCurrentPage(currentPage-1)
+  }
+// console.log("customers", customers)
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -40,7 +51,7 @@ export default function Customers() {
 
  
   const getAllCustomers = useCallback(() => {
-    const url = `http://localhost:8080/api/customers`;
+    const url = `http://localhost:8080/api/customers?size=${pageSize}&page=${currentPage}`;
     axios
       .get(url)
       .then((response) => {
@@ -49,7 +60,7 @@ export default function Customers() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     getAllCustomers();
@@ -71,13 +82,13 @@ export default function Customers() {
     e.preventDefault();
     const url = `http://localhost:8080/api/customers`;
     try {
-      const response = await axios.post(url, addedCustomer);
+      const response = await axios.post(url);
       setCustomers(response.data);
       getAllCustomers();
     } catch (err) {
       alert(err);
     }
-    setOpen(!open);
+    // setOpen(!open);
   }
 
   async function updateCustomer(e) {
@@ -191,10 +202,18 @@ export default function Customers() {
 
           <Button
             variant="contained"
-            onClick={addCustomerDialogHandler}
+            // onClick={addCustomerDialogHandler}
             style={{ marginBottom: 10, float: "right" }}
           >
             Add Customer
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={addCustomer}
+            style={{ marginBottom: 10, float: "right" }}
+          >
+            create fake data
           </Button>
         </Grid>
         <Grid xs={2}></Grid>
@@ -227,6 +246,10 @@ export default function Customers() {
             confirmationDialogHandler={confirmationDialogHandler}
             orderDialogHandler={orderDialogHandler}
             getOrdersOfCustomer={getOrdersOfCustomer}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            currentPage={currentPage}
+            pageSize={pageSize}
           />
           <OrderForm
             open={orderDialog}

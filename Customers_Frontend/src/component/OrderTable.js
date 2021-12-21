@@ -30,7 +30,7 @@ export default function OrdersTable(props) {
       {ordersOfCustomer ? (
         <div
           style={{
-            height: "100%",
+            maxHeight: 300,
             minWidth: "80%",
             padding: 20,
             textAlign: "center",
@@ -38,7 +38,7 @@ export default function OrdersTable(props) {
         >
           <h4>Orders Details</h4>
 
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} >
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
