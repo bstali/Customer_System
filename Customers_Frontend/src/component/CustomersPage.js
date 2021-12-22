@@ -21,17 +21,17 @@ export default function Customers() {
   const [orderDialog, setOrderDialog] = useState(false);
   const [orderDetailsDialog, setOrderDetailsDialog] = useState(false);
   const pageSize = 10;
-  const [currentPage, setCurrentPage] = useState(1)
-  console.log("currentPage", currentPage)
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log("currentPage", currentPage);
 
   const nextPage = () => {
-    setCurrentPage(currentPage+1)
-  }
+    setCurrentPage(currentPage + 1);
+  };
 
   const previousPage = () => {
-    setCurrentPage(currentPage-1)
-  }
-// console.log("customers", customers)
+    setCurrentPage(currentPage - 1);
+  };
+  console.log("customers", customers);
   const confirmationDialogHandler = () => {
     setConfirmationDialog(!confirmationDialog);
   };
@@ -49,7 +49,6 @@ export default function Customers() {
     setOrderDetailsDialog(!orderDetailsDialog);
   };
 
- 
   const getAllCustomers = useCallback(() => {
     const url = `http://localhost:8080/api/customers?size=${pageSize}&page=${currentPage}`;
     axios
@@ -118,8 +117,7 @@ export default function Customers() {
     setOrderDialog(!orderDialog);
   }
 
- async function getOrdersOfCustomer(id) {
-    
+  async function getOrdersOfCustomer(id) {
     const url = `http://localhost:8080/api/customers/orders/${id}`;
     try {
       const response = await axios.get(url);
@@ -128,7 +126,6 @@ export default function Customers() {
       console.log(err);
     }
     setOrderDetailsDialog(!orderDetailsDialog);
-  
   }
 
   const rowSelection = (id) => {
@@ -140,7 +137,6 @@ export default function Customers() {
       setSelectedRow(selectedCustomer);
     }
   };
-
 
   const handleUpdatedCustomer = (data, key) => {
     // const customUP =  UpdatedCustomer;
@@ -195,7 +191,7 @@ export default function Customers() {
 
   return (
     <>
-      <Grid container style={{marginTop: 70}}>
+      <Grid container style={{ marginTop: 70 }}>
         <Grid xs={2}></Grid>
         <Grid item xs={8}>
           <h1>Customers Details</h1>
@@ -238,7 +234,7 @@ export default function Customers() {
           />
 
           <CustomerTable
-          customers={customers}
+            customers={customers}
             updateDialogHandler={updateDialogHandler}
             deleteCustomer={deleteCustomer}
             rowSelection={rowSelection}

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Button,
@@ -8,11 +8,14 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export default function CustomerTable(props) {
   const customers = props.customers;
-  console.log("customers", customers)
-  const customersData = customers.customersData;
+  console.log("customers", customers);
+  const currentPage = props.currentPage;
+
   const showOrders = (e) => {
     return (
       <p
@@ -81,36 +84,41 @@ export default function CustomerTable(props) {
     },
   ];
 
-  const [rowsState, setRowsState] = React.useState({
-    page: 0,
-    pageSize: 10,
-    rows: [],
-    loading: false,
-  });
-
   return (
     <>
       <div style={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={customers.customersData}
           columns={columns}
-          // pagination
-          // paginationMode="server"
-          rowCount={customers.totalCustomers}
-          rowsPerPageOptions={[]}
-          pageSize={props.pageSize}
-          // rowsPerPageOptions={[5]}
+          hideFooter={true}
           onSelectionModelChange={(e) => {
             props.rowSelection(e);
           }}
         />
       </div>
-      <Button onClick={()=> props.previousPage()}>
-        back 
-      </Button>
-      <Button onClick={()=> props.nextPage()}>
-        next 
-      </Button>
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          marginTop:10
+        }}
+      >
+        {currentPage === 1 ? null : (
+          <ArrowBackIcon
+            style={{ color: "#1976D2", marginRight: 20, cursor: "pointer" }}
+            onClick={() => props.previousPage()}
+          />
+        )}
+        <span>
+          Page {currentPage} of {customers.totalPages}
+        </span>
+        {currentPage === customers.totalPages ? null : (
+          <ArrowForwardIcon
+            style={{ color: "#1976D2", marginLeft: 20, cursor: "pointer" }}
+            onClick={() => props.nextPage()}
+          />
+        )}
+      </div>
       <div>
         <Dialog
           open={props.open}

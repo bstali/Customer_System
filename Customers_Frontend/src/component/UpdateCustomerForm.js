@@ -13,7 +13,7 @@ export default function UpdateCustomerForm(props) {
         <Dialog
           open={props.open}
           onClose={() => {
-            props.handleClose();
+            props.updateDialogHandler();
           }}
           TransitionComponent={Transition}
           sx={{

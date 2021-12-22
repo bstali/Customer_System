@@ -3,7 +3,6 @@ const Customers = db.customers;
 const Orders = db.orders;
 import Sequelize from "sequelize";
 var faker = require("faker");
-console.log("Customerssssssssssssss", Customers)
 // Create and Save a new customer
 exports.create = async (req, res) => {
   // Create a customer
@@ -91,7 +90,6 @@ exports.findAll = async (req, res) => {
     });
     10
     const response = getPagingData(data, page)
-    console.log("dataaaaaaaaa",data)
     res.send(response);
   } catch (err) {
     res.status(500).send({
