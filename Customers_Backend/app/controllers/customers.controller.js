@@ -69,7 +69,7 @@ exports.findAll = async (req, res) => {
   console.log("limit", limit, "offset", offset)
   try {
     const data = await Customers.findAndCountAll({ 
-      limit, 
+      limit,
       offset,
        
     // attributes: {
@@ -88,7 +88,6 @@ exports.findAll = async (req, res) => {
     // ],
     // group: ["Customers.id"]
     });
-    10
     const response = getPagingData(data, page)
     res.send(response);
   } catch (err) {
