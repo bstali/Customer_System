@@ -63,7 +63,7 @@ const getPagingData = (data, page) => {
 exports.findAll = async (req, res) => {
   
   const { page, size } = req.query;
-  console.log("page", page, "size", size)
+  // console.log("page", page, "size", size)
 
   const { limit, offset } = getPagination(page, size);
   console.log("limit", limit, "offset", offset)

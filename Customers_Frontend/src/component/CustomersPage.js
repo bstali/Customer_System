@@ -246,6 +246,7 @@ export default function Customers() {
             previousPage={previousPage}
             currentPage={currentPage}
             pageSize={pageSize}
+            orders={orders}
           />
           <OrderForm
             open={orderDialog}

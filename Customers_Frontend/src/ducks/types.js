@@ -1,0 +1,16 @@
+// Actions
+const GET_ALL_CUSTOMERS = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/GET_ALL_CUSTOMERS";
+const CREATE_CUSTOMER = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/CREATE_CUSTOMER";
+const UPDATE_CUSTOMER = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/UPDATE_CUSTOMER";
+const DELETE_CUSTOMER = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/DELETE_CUSTOMER";
+const GET_ALL_ORDERS = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/GET_ALL_ORDERS";
+const CREATE_ORDER = "CUSTOMER_SYSTEM/Customers_FrontEnd/Customers/CREATE_ORDER";
+
+export default {
+    GET_ALL_CUSTOMERS,
+    CREATE_CUSTOMER,
+    UPDATE_CUSTOMER,
+    DELETE_CUSTOMER,
+    GET_ALL_ORDERS,
+    CREATE_ORDER
+};
